@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Prompt the user to enter a directory path
+echo "Please enter the path to the directory:"
+read DIRECTORY
+
+# Check if the directory exists
+if [ ! -d "$DIRECTORY" ]; then
+  echo "Error: '$DIRECTORY' does not exist."
+  exit 1
+fi
+
+# Count the number of executable files in the directory
+# -type f: finds files only
+# -perm /a+x: checks for any executable permission (user, group, or others)
+EXECUTABLE_COUNT=$(find "$DIRECTORY" -type f -perm /a+x | wc -l)
+
+# Display the result
+echo "The directory '$DIRECTORY' contains $EXECUTABLE_COUNT executable files."
